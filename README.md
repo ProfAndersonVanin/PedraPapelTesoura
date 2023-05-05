@@ -17,42 +17,43 @@ Testar o modelo em tempo real: Quando o modelo estiver pronto, você pode usá-l
 Lembre-se de que a criação de um modelo de visão computacional é um processo iterativo e pode exigir muita tentativa e erro. No entanto, com perseverança e experimentação, você pode criar um modelo preciso e confiável para detectar os gestos que deseja.
 
 
+
 import cv2
 
-# carrega o modelo treinado para a detecção dos gestos
+#carrega o modelo treinado para a detecção dos gestos
 gesture_model = cv2.CascadeClassifier('path/to/your/model.xml')
 
-# abre a câmera para capturar o vídeo
+#abre a câmera para capturar o vídeo
 cap = cv2.VideoCapture(0)
 
-# define as regiões de interesse (ROIs) para os três gestos
+#define as regiões de interesse (ROIs) para os três gestos
 hand_roi = [(50, 50, 200, 200), (250, 50, 200, 200), (450, 50, 200, 200)]
 
 while True:
-    # lê um quadro do vídeo
+    #lê um quadro do vídeo
     ret, frame = cap.read()
     
-    # converte para escala de cinza
+    #converte para escala de cinza
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
-    # detecta os gestos na imagem
+    #detecta os gestos na imagem
     hands = gesture_model.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
     
-    # desenha retângulos ao redor das mãos detectadas
+    #desenha retângulos ao redor das mãos detectadas
     for (x, y, w, h) in hands:
         for i, roi in enumerate(hand_roi):
             if x >= roi[0] and y >= roi[1] and x+w <= roi[0]+roi[2] and y+h <= roi[1]+roi[3]:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
                 cv2.putText(frame, 'Gesture ' + str(i+1), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
-    # exibe a imagem com os retângulos desenhados
+    #exibe a imagem com os retângulos desenhados
     cv2.imshow('Hand Gestures', frame)
     
-    # espera por uma tecla
+    #espera por uma tecla
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# libera os recursos
+#libera os recursos
 cap.release()
 cv2.destroyAllWindows()
 
