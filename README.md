@@ -17,7 +17,7 @@ Testar o modelo em tempo real: Quando o modelo estiver pronto, você pode usá-l
 Lembre-se de que a criação de um modelo de visão computacional é um processo iterativo e pode exigir muita tentativa e erro. No entanto, com perseverança e experimentação, você pode criar um modelo preciso e confiável para detectar os gestos que deseja.
 
 
-
+```
 import cv2
 
 #carrega o modelo treinado para a detecção dos gestos
@@ -56,6 +56,6 @@ while True:
 #libera os recursos
 cap.release()
 cv2.destroyAllWindows()
-
+```
 
 Neste exemplo, você precisaria fornecer o modelo treinado para detecção dos gestos, que pode ser criado com as etapas mencionadas anteriormente. O código abre a câmera para capturar o vídeo e define as regiões de interesse (ROIs) para os três gestos de mão. Em seguida, ele lê cada quadro do vídeo e converte para escala de cinza. O modelo de detecção dos gestos é então aplicado à imagem em escala de cinza e os retângulos são desenhados ao redor das mãos detectadas. O número do gesto é exibido acima de cada retângulo. O vídeo com as regiões retangulares desenhadas é exibido em uma janela e o programa termina quando a tecla 'q' é pressionada.
